@@ -1,4 +1,4 @@
-package com.pedro.thingscontroller.domain.model
+package com.pedro.thingscontroller.domain.model.thing
 
 /**
  * Represents the connection state of a Thing (IoT).

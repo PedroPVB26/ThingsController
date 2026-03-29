@@ -1,4 +1,4 @@
-package com.pedro.thingscontroller.domain.model
+package com.pedro.thingscontroller.domain.model.component
 
 /**
  * Represents the type of hardware component available in a device.

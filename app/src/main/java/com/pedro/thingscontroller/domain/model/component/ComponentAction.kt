@@ -1,4 +1,4 @@
-package com.pedro.thingscontroller.domain.model
+package com.pedro.thingscontroller.domain.model.component
 
 /**
  * Represents an action that can be performed by a hardware component
@@ -23,8 +23,8 @@ sealed interface ComponentAction {
     /**
      * Represents actions that can be executed by a buzzer component.
      *
-     * - [On]: Plays a continuous sound. Optionally accepts a frequency in Hz.
-     * - [Beep]: Plays an intermittent sound (beeping). Allows configuring
+     * - [ON]: Plays a continuous sound. Optionally accepts a frequency in Hz.
+     * - [BEEP]: Plays an intermittent sound (beeping). Allows configuring
      *   frequency and interval between beeps.
      *
      * If frequency is not provided, a default value will be used by the device.
@@ -40,7 +40,7 @@ sealed interface ComponentAction {
         ): BuzzerAction
 
         /**
-         * Plays a beeping sound (on/off repeatedly).
+         * Plays a beeping sound repeatedly.
          *
          * @property frequency Frequency in Hertz (Hz). Optional.
          */

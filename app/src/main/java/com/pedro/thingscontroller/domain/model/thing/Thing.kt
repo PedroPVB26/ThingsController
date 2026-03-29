@@ -1,4 +1,4 @@
-package com.pedro.thingscontroller.domain.model
+package com.pedro.thingscontroller.domain.model.thing
 
 /**
  * Represents an IoT device ("Thing") and its current state in the cloud.
