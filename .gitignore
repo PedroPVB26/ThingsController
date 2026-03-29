@@ -1,0 +1,24 @@
+# IDE
+.idea/
+*.iml
+
+# Gradle
+.gradle/
+build/
+app/build/
+
+# Local config
+local.properties
+
+# NDK / C++
+.externalNativeBuild/
+.cxx/
+
+# Capturas
+captures/
+
+# Mac
+.DS_Store
+
+# Logs
+*.log
