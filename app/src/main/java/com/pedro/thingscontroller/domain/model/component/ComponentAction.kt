@@ -2,7 +2,7 @@ package com.pedro.thingscontroller.domain.model.component
 
 /**
  * Represents an action that can be performed by a hardware component
- * susch as Led, Buzzer, Sensor, etc.
+ * such as LED, BUZZER, SENSOR, etc.
  *
  * This interface is used to standardize commands sent to the thing.
  */
