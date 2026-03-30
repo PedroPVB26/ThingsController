@@ -16,7 +16,7 @@ import com.pedro.thingscontroller.domain.model.component.ComponentType
  * @property componentId Unique identifier of the target component inside the Thing
  * (e.g., "redLed", "greenLed", "environment1").
  *
- * @property componentCommand Type of the component that will receive the command
+ * @property componentType Type of the component that will receive the command
  * (e.g., LED, BUZZER).
  *
  * @property action Action to be performed on the component. The action must be
@@ -25,6 +25,6 @@ import com.pedro.thingscontroller.domain.model.component.ComponentType
 sealed class ThingCommand {
     abstract val requestId: String?
     abstract val componentId: String
-    abstract val componentCommand: ComponentType
+    abstract val componentType: ComponentType
     abstract val action: ComponentAction
 }

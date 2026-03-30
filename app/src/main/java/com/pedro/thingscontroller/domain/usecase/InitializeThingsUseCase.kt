@@ -10,7 +10,9 @@ class InitializeThingsUseCase @Inject constructor(
     private val ensureNetworkUseCase: EnsureNetworkUseCase
 ) {
     suspend operator fun invoke(): UseCaseResult<Unit>{
-        if (!ensureNetworkUseCase()) return UseCaseResult.Failure.NoNetwork
+        ensureNetworkUseCase().let {
+            if(it is UseCaseResult.Failure.NoNetwork) return it
+        }
 
         return try {
             thingRepository.initialize()

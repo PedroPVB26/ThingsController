@@ -13,7 +13,7 @@ import com.pedro.thingscontroller.domain.model.component.ComponentType
 data class LedCommand(
     override val requestId: String? = null,
     override val componentId: String,
-    override val componentCommand: ComponentType = ComponentType.LED,
+    override val componentType: ComponentType = ComponentType.LED,
     override val action: ComponentAction.LedAction,
 
     ): ThingCommand()

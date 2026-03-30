@@ -10,7 +10,7 @@ import javax.inject.Inject
  * Use case responsible for sending a command to a specific Thing (IoT device).
  *
  * Before dispatching the command, connectivity is verified via [EnsureNetworkUseCase].
- * If the device is offline, the operation fails immediately with a [NoNetworkException]
+ * If the device is offline, the operation fails immediately with a [ThingException.ThingNotConnectedException]
  * without reaching the repository.
  *
  * This reflects the business rule that commands cannot be sent without
@@ -27,7 +27,9 @@ class SendCommandUseCase @Inject constructor(
     private val ensureNetworkUseCase: EnsureNetworkUseCase
 ) {
     suspend operator fun invoke(thingId: String, command: ThingCommand): UseCaseResult<Unit> {
-        if(!ensureNetworkUseCase()) return UseCaseResult.Failure.NoNetwork
+        ensureNetworkUseCase().let {
+            if(it is UseCaseResult.Failure.NoNetwork) return it
+        }
 
         return try {
             thingRepository.sendCommand(thingId, command)
