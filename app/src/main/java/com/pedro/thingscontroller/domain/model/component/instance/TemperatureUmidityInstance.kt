@@ -13,7 +13,7 @@ import com.pedro.thingscontroller.domain.model.component.ComponentType
  * and humidity values.
  */
 data class TemperatureUmidityInstance(
-    override val componentType: ComponentType,
+    override val componentType: ComponentType = ComponentType.TEMPERATURE_UMIDITY_SENSOR,
     override val available: Boolean,
     override val state: ComponentState,
     override val updatedAt: Long,

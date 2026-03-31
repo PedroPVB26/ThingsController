@@ -5,6 +5,9 @@ package com.pedro.thingscontroller.domain.model.component
  * such as LED, BUZZER, SENSOR, etc.
  *
  * This interface is used to standardize commands sent to the thing.
+ *
+ * @see LedAction
+ * @see BuzzerAction
  */
 sealed interface ComponentAction {
     /**
@@ -26,7 +29,7 @@ sealed interface ComponentAction {
      * - [ON]: Plays a continuous sound. Optionally accepts a frequency in Hz.
      * - [BEEP]: Plays an intermittent sound (beeping). Allows configuring
      *   frequency and interval between beeps.
-     *
+     * - [OFF]: Turn off the Buzzer component
      * If frequency is not provided, a default value will be used by the device.
      */
     sealed interface BuzzerAction: ComponentAction{

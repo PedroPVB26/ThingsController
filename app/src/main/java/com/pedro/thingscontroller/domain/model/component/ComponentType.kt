@@ -7,5 +7,5 @@ package com.pedro.thingscontroller.domain.model.component
  * (e.g., turning on a LED or reading sensor data).
  */
 enum class ComponentType {
-    LED, TEMPERATURE_UMIDITY_SENSOR, BUZZER
+    LED, TEMPERATURE_UMIDITY_SENSOR, BUZZER, UNKNOWN
 }
