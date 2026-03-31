@@ -1,4 +1,4 @@
-package com.pedro.thingscontroller.ui.theme
+package com.pedro.thingscontroller.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
