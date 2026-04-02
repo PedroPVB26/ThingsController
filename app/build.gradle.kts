@@ -44,6 +44,8 @@ android {
 dependencies {
     // Hilt
     implementation(libs.hilt.android)
+    implementation(libs.core.ktx)
+    testImplementation(libs.junit.junit)
     ksp(libs.hilt.android.compiler)
 
     // Retrofit
@@ -62,6 +64,13 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.lifecycle.runtime.compose)
+
+    // DataStore
+    implementation(libs.androidx.datastore.preferences)
+
+    // Tests
+    androidTestImplementation(libs.androidx.junit.v115)
+    androidTestImplementation(libs.androidx.core)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
