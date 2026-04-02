@@ -20,13 +20,14 @@ import com.pedro.thingscontroller.domain.model.component.ComponentType
  * @property updatedAt Unix timestamp (in milliseconds) indicating when
  * the component state was last updated.
  *
- * @property pendingRequest Optional identifier of a command that has been
+ * @property pendingRequestId Optional identifier of a command that has been
  * sent but not yet confirmed by the device. Used for tracking in-flight operations.
  */
 sealed class ComponentInstance{
+    abstract val componentId: String
     abstract val componentType: ComponentType
     abstract val available: Boolean
     abstract val state: ComponentState
     abstract val updatedAt: Long
-    abstract val pendingRequest: String?
+    abstract val pendingRequestId: String?
 }

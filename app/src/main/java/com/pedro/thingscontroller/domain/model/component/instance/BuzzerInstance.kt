@@ -9,9 +9,10 @@ import com.pedro.thingscontroller.domain.model.component.ComponentType
  * Specializes [ComponentInstance] for buzzer-specific behavior and state.
  */
 data class BuzzerInstance(
+    override val componentId: String,
     override val componentType: ComponentType = ComponentType.BUZZER,
     override val available: Boolean,
     override val state: ComponentState,
     override val updatedAt: Long,
-    override val pendingRequest: String?
+    override val pendingRequestId: String?
 ): ComponentInstance()

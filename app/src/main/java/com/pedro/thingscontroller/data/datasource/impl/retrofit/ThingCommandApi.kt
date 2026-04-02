@@ -10,5 +10,5 @@ interface ThingCommandApi {
     suspend fun getAllThings(): Response<GetAllThingsResponse>
 
     @GET("{thingName}/components")
-    suspend fun getThingComponents(@Path("thingName") thingName: String): Response<ThingComponentsResponse>
+    suspend fun getThingComponents(@Path("thingName") thingName: String): Response<GetAllThingsResponse>
 }

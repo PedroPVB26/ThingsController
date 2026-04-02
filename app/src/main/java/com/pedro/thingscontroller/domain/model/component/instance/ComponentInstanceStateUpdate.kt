@@ -14,7 +14,7 @@ import com.pedro.thingscontroller.domain.model.component.ComponentType
  * It does not represent the full state of a component, but rather a single transition
  * that should be applied to the existing state.
  *
- * @property type Type of the component being updated (e.g., LED, SERVO, SENSOR).
+ * @property componentType Type of the component being updated (e.g., LED, SERVO, SENSOR).
  * @property componentId Unique identifier of the component instance within the Thing.
  * @property state New state to be applied to the component. The concrete implementation
  * of [ComponentState] depends on the component type.

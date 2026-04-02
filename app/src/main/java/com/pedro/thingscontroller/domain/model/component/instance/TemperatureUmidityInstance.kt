@@ -1,5 +1,6 @@
 package com.pedro.thingscontroller.domain.model.component.instance
 
+import com.pedro.thingscontroller.domain.model.component.ComponentPrecision
 import com.pedro.thingscontroller.domain.model.component.ComponentState
 import com.pedro.thingscontroller.domain.model.component.ComponentType
 
@@ -13,21 +14,11 @@ import com.pedro.thingscontroller.domain.model.component.ComponentType
  * and humidity values.
  */
 data class TemperatureUmidityInstance(
+    override val componentId: String,
     override val componentType: ComponentType = ComponentType.TEMPERATURE_UMIDITY_SENSOR,
     override val available: Boolean,
     override val state: ComponentState,
     override val updatedAt: Long,
-    override val pendingRequest: String?,
-    val precision: TemperatureUmiditySensorPrecision
+    override val pendingRequestId: String?,
+    val precision: ComponentPrecision.TemperatureUmiditySensorPrecision?
 ): ComponentInstance()
-
-/**
- * Represents the precision configuration of a temperature and humidity sensor.
- *
- * @property temperaturePrecision Number of decimal places for temperature values.
- * @property humidityPrecision Number of decimal places for humidity values.
- */
-data class TemperatureUmiditySensorPrecision(
-    val temperaturePrecision: Int,
-    val humidityPrecision: Int
-)

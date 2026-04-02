@@ -9,9 +9,10 @@ import com.pedro.thingscontroller.domain.model.component.ComponentType
  * Specializes [ComponentInstance] for LED-specific behavior and state.
  */
 data class LedInstance(
+    override val componentId: String,
     override val componentType: ComponentType = ComponentType.LED,
     override val available: Boolean,
     override val state: ComponentState,
     override val updatedAt: Long,
-    override val pendingRequest: String?
+    override val pendingRequestId: String?
 ): ComponentInstance()
