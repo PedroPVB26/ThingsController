@@ -1,4 +1,4 @@
-package com.pedro.thingscontroller.presentation.ui.theme
+package com.pedro.thingscontroller.presentation.view.ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme

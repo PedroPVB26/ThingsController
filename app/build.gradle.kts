@@ -1,3 +1,5 @@
+import org.gradle.kotlin.dsl.coreLibraryDesugaring
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
@@ -35,6 +37,7 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+        isCoreLibraryDesugaringEnabled = true
     }
     buildFeatures {
         compose = true
@@ -71,6 +74,13 @@ dependencies {
     // Tests
     androidTestImplementation(libs.androidx.junit.v115)
     androidTestImplementation(libs.androidx.core)
+
+    // Amplify
+    implementation(libs.aws.auth.cognito)
+    implementation(libs.core.kotlin)
+
+    // core library desugaring
+    coreLibraryDesugaring(libs.desugar.jdk.libs)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

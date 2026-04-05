@@ -21,7 +21,7 @@ interface ThingRepository {
      * This flow updates whenever there are changes in any Thing state,
      * such as connection status or component updates.
      */
-    val allThings: Flow<List<Thing>>
+    val allThings: Flow<Map<String, Thing>>
 
     /**
      * Observes a specific Thing by its identifier.

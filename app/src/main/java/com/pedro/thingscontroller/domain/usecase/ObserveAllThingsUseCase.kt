@@ -8,5 +8,5 @@ import javax.inject.Inject
 class ObserveAllThingsUseCase @Inject constructor(
     private val thingRepository: ThingRepository
 ) {
-    operator fun invoke(): Flow<List<Thing>> = thingRepository.allThings
+    operator fun invoke(): Flow<Map<String, Thing>> = thingRepository.allThings
 }

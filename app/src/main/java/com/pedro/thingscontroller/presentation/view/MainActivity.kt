@@ -1,4 +1,4 @@
-package com.pedro.thingscontroller.presentation
+package com.pedro.thingscontroller.presentation.view
 
 import android.os.Bundle
 import android.util.Log
@@ -13,13 +13,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.lifecycleScope
-import com.pedro.thingscontroller.data.datasource.impl.datastore.DataStoreTokenProvider
-import com.pedro.thingscontroller.presentation.ui.theme.ThingsControllerTheme
+import com.pedro.thingscontroller.domain.model.UseCaseResult
+import com.pedro.thingscontroller.domain.usecase.InitializeThingsUseCase
+import com.pedro.thingscontroller.domain.usecase.LoginUseCase
+//import com.pedro.thingscontroller.data.datasource.impl.datastore.DataStoreTokenProvider
+import com.pedro.thingscontroller.presentation.view.ui.theme.ThingsControllerTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    @Inject
+    lateinit var loginUseCase: LoginUseCase
+
+    @Inject
+    lateinit var initializeThingsUseCase: InitializeThingsUseCase
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -35,17 +45,27 @@ class MainActivity : ComponentActivity() {
         }
 
         lifecycleScope.launch {
-            val provider = DataStoreTokenProvider(applicationContext)
 
-            provider.saveToken("meu_token_teste")
+            val result = loginUseCase("username", "senha")
 
-            val token = provider.getToken()
-            Log.d("TEST_TOKEN", "Token recuperado: $token")
+            when (result) {
+                is UseCaseResult.Success -> {
+                    val tokens = result.data
 
-            provider.clearToken()
+                    Log.d("LOGIN_TEST", "Login sucesso")
 
-            val tokenAfterClear = provider.getToken()
-            Log.d("TEST_TOKEN", "Após limpar: $tokenAfterClear")
+                    Log.d("TOKEN", "AccessToken: ${tokens?.accessToken}")
+                    Log.d("TOKEN", "RefreshToken: ${tokens?.refreshToken}")
+                    Log.d("TOKEN", "IdToken: ${tokens?.idToken}")
+                }
+                is UseCaseResult.Failure -> {
+                    Log.e("LOGIN_TEST", "Erro no login: $result")
+                }
+            }
+        }
+
+        lifecycleScope.launch {
+            initializeThingsUseCase()
         }
     }
 }
