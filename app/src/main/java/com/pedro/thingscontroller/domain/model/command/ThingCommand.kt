@@ -23,7 +23,7 @@ import com.pedro.thingscontroller.domain.model.component.ComponentType
  * compatible with the specified component type.
  */
 sealed class ThingCommand {
-    abstract val requestId: String?
+    abstract var requestId: String?
     abstract val componentId: String
     abstract val componentType: ComponentType
     abstract val action: ComponentAction

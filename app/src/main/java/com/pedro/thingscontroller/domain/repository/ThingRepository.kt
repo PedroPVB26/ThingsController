@@ -2,8 +2,10 @@ package com.pedro.thingscontroller.domain.repository
 
 import com.pedro.thingscontroller.domain.model.command.ThingCommand
 import com.pedro.thingscontroller.domain.model.ThingException
+import com.pedro.thingscontroller.domain.model.component.Component
 import com.pedro.thingscontroller.domain.model.thing.Thing
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 
 /**
  * Repository interface responsible for managing Things (IoT devices).
@@ -16,12 +18,29 @@ import kotlinx.coroutines.flow.Flow
  */
 interface ThingRepository {
     /**
-     * A reactive stream that emits the current list of all available Things.
+     * A reactive stream that emits the current state of all available Things,
+     * keyed by their unique identifier.
      *
-     * This flow updates whenever there are changes in any Thing state,
+     * Using a [Map] allows O(1) lookup by [Thing.thingName] without iterating the
+     * entire collection. This flow updates whenever any Thing changes state,
      * such as connection status or component updates.
      */
     val allThings: Flow<Map<String, Thing>>
+
+    /**
+     * A reactive stream that emits the current component state for all Things,
+     * keyed by Thing identifier.
+     *
+     * Each entry maps a Thing's identifier to its list of [Component],
+     * where each component holds the current state of all its instances,
+     * including any pending request awaiting confirmation from the device.
+     *
+     * This flow updates whenever a shadow update accepted message arrives
+     * for any subscribed Thing, or when [markComponentPending] is called.
+     *
+     * @see markComponentPending
+     */
+    val allThingsComponents: StateFlow<Map<String, List<Component>>>
 
     /**
      * Observes a specific Thing by its identifier.
@@ -67,4 +86,18 @@ interface ThingRepository {
      * @throws ThingException.UnsupportedComponentActionException if the component does not support the given action.
      */
     suspend fun sendCommand(thingId: String, thingCommand: ThingCommand)
+
+    /**
+     * Marks a component instance as pending, indicating a command has been
+     * sent and the UI should show a loading state while awaiting confirmation.
+     *
+     * The pending state is cleared automatically when a shadow update accepted
+     * message arrives containing a matching [requestId].
+     *
+     * @param thingId Identifier of the Thing.
+     * @param componentId Identifier of the component instance.
+     * @param requestId The request identifier sent with the command, used to
+     * match the incoming shadow update that clears the pending state.
+     */
+    fun markComponentPending(thingId: String, componentId: String, requestId: String?)
 }

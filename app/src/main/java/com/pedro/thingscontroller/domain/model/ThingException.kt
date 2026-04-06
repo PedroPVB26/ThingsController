@@ -65,4 +65,17 @@ sealed class ThingException : Exception() {
         val componentId: String,
         val action: ComponentAction
     ) : ThingException()
+
+
+    /**
+     * Thrown when an unexpected error occurs that does not match any known
+     * domain failure scenario.
+     *
+     * This serves as a catch-all for errors originating from external systems
+     * such as failed HTTP calls, MQTT publish failures, or any other
+     * infrastructure-level exception that has no specific domain meaning.
+     *
+     * @property cause The underlying exception that triggered this failure.
+     */
+    data class Unknown(override val cause: Throwable) : ThingException()
 }

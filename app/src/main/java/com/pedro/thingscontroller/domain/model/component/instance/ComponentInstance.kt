@@ -30,4 +30,14 @@ sealed class ComponentInstance{
     abstract val state: ComponentState
     abstract val updatedAt: Long
     abstract val pendingRequestId: String?
+
+    // Mover as implementações para cá!!!
+    // Cada filha faz literalmente a mesma coisa com essa função
+    abstract fun withPendingRequest(requestId: String?): ComponentInstance
+
+    abstract fun updateState(
+        newState: ComponentState,
+        updatedAt: Long,
+        requestId: String?
+    ): ComponentInstance
 }

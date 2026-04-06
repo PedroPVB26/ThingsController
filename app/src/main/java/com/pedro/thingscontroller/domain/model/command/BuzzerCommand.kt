@@ -11,7 +11,7 @@ import com.pedro.thingscontroller.domain.model.component.ComponentType
  * (e.g., ON, OFF, BEEP) can be executed.
  */
 data class BuzzerCommand(
-    override val requestId: String? = null,
+    override var requestId: String? = null,
     override val componentId: String,
     override val componentType: ComponentType = ComponentType.BUZZER,
     override val action: ComponentAction.BuzzerAction

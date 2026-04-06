@@ -1,23 +1,27 @@
 package com.pedro.thingscontroller.di.modules
 
 import android.content.Context
+import com.google.gson.Gson
 import com.pedro.thingscontroller.data.auth.AmplifyTokenProvider
 import com.pedro.thingscontroller.data.auth.AuthRepositoryImpl
+import com.pedro.thingscontroller.data.datasource.MqttDataSource
+import com.pedro.thingscontroller.data.datasource.impl.AwsMqttDataSource
 import com.pedro.thingscontroller.data.datasource.impl.NetworkMonitorImpl
 import com.pedro.thingscontroller.data.datasource.impl.ThingRepositoryImpl
 import com.pedro.thingscontroller.data.datasource.impl.retrofit.AuthInterceptor
 import com.pedro.thingscontroller.data.datasource.impl.retrofit.ThingsApi
-import com.pedro.thingscontroller.domain.model.thing.Thing
 import com.pedro.thingscontroller.domain.repository.AuthRepository
 import com.pedro.thingscontroller.domain.repository.NetworkMonitor
 import com.pedro.thingscontroller.domain.repository.ThingRepository
 import com.pedro.thingscontroller.domain.repository.TokenProvider
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -88,9 +92,36 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providesThingRepository(
-        thingsApi: ThingsApi
-    ): ThingRepository{
-        return ThingRepositoryImpl(thingsApi)
+    fun providesMqttDataSource(
+        @ApplicationContext context: Context
+    ): MqttDataSource{
+        return AwsMqttDataSource(context)
     }
+
+    @Provides
+    @Singleton
+    fun provideGson(): Gson = Gson()
+
+    @ApplicationScope
+    @Singleton
+    @Provides
+    fun provideApplicationScope(): CoroutineScope =
+        CoroutineScope(SupervisorJob() + Dispatchers.IO)
+
+    @Provides
+    @Singleton
+    fun providesThingRepository(
+        thingsApi: ThingsApi,
+        mqttDataSource: MqttDataSource,
+        gson: Gson,
+        @ApplicationScope coroutineScope: CoroutineScope
+    ): ThingRepository{
+        return ThingRepositoryImpl(
+            thingsApi = thingsApi,
+            mqttDataSource = mqttDataSource,
+            gson = gson,
+            appScope = coroutineScope
+        )
+    }
+
 }

@@ -21,4 +21,20 @@ data class TemperatureUmidityInstance(
     override val updatedAt: Long,
     override val pendingRequestId: String?,
     val precision: ComponentPrecision.TemperatureUmiditySensorPrecision?
-): ComponentInstance()
+): ComponentInstance() {
+    override fun withPendingRequest(requestId: String?): ComponentInstance  = copy(pendingRequestId = requestId)
+
+    override fun updateState(
+        newState: ComponentState,
+        updatedAt: Long,
+        requestId: String?
+    ): ComponentInstance {
+        val shouldClearPending = requestId == null || pendingRequestId == requestId
+
+        return copy(
+            state = newState,
+            updatedAt = updatedAt,
+            pendingRequestId = if (shouldClearPending) null else pendingRequestId
+        )
+    }
+}

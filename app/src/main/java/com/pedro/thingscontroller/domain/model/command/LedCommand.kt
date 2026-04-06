@@ -11,7 +11,7 @@ import com.pedro.thingscontroller.domain.model.component.ComponentType
  * (e.g., ON, OFF, BLINK) can be executed.
  */
 data class LedCommand(
-    override val requestId: String? = null,
+    override var requestId: String? = null,
     override val componentId: String,
     override val componentType: ComponentType = ComponentType.LED,
     override val action: ComponentAction.LedAction,
