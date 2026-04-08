@@ -1,4 +1,4 @@
-package com.pedro.thingscontroller.domain.model
+package com.pedro.thingscontroller.domain.model.exception
 
 import com.pedro.thingscontroller.domain.model.component.ComponentAction
 

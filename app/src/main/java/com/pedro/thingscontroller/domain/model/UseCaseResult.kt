@@ -1,5 +1,7 @@
 package com.pedro.thingscontroller.domain.model
 
+import com.pedro.thingscontroller.domain.model.exception.MyAuthException
+import com.pedro.thingscontroller.domain.model.exception.ThingException
 import com.pedro.thingscontroller.domain.usecase.EnsureNetworkUseCase
 
 /**
@@ -59,10 +61,9 @@ sealed class UseCaseResult<out T> {
          * The operation failed due to a known domain error related to
          * a Thing or one of its components.
          *
-         * @property exception The [ThingException] that caused the failure.
-         * Inspect its subtype for specific details such as [thingId] or [componentId].
+         * @property exception The [com.pedro.thingscontroller.domain.model.exception.ThingException] that caused the failure.
          *
-         * @see ThingException
+         * @see com.pedro.thingscontroller.domain.model.exception.ThingException
          */
         data class ThingError(val exception: ThingException) : Failure()
 
@@ -73,5 +74,8 @@ sealed class UseCaseResult<out T> {
          * @property cause The underlying exception that caused the failure.
          */
         data class Unknown(val cause: Throwable) : Failure()
+
+        // 👇 NOVO
+        data class AuthError(val exception: MyAuthException) : Failure()
     }
 }

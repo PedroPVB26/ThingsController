@@ -8,7 +8,7 @@ import com.pedro.thingscontroller.data.model.dto.ThingPresence
 import com.pedro.thingscontroller.data.model.dto.shadow.ShadowResponse
 import com.pedro.thingscontroller.data.model.mapper.toDomain
 import com.pedro.thingscontroller.di.modules.ApplicationScope
-import com.pedro.thingscontroller.domain.model.ThingException
+import com.pedro.thingscontroller.domain.model.exception.ThingException
 import com.pedro.thingscontroller.domain.model.command.ThingCommand
 import com.pedro.thingscontroller.domain.model.component.Component
 import com.pedro.thingscontroller.domain.model.component.instance.ComponentInstanceStateUpdate
@@ -56,6 +56,7 @@ class ThingRepositoryImpl @Inject constructor(
         // Seed in-meory state
         val things = response.body()!!.things
         _allThings.value = things.associateBy { it.thingName }
+        Log.i(TAG, "TESTE: ${_allThings.value.toString()}")
 
         // Connect to MQTT
         mqttDataSource.connect()

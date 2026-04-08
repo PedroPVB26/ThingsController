@@ -1,6 +1,6 @@
 package com.pedro.thingscontroller.domain.usecase
 
-import com.pedro.thingscontroller.domain.model.ThingException
+import com.pedro.thingscontroller.domain.model.exception.ThingException
 import com.pedro.thingscontroller.domain.model.UseCaseResult
 import com.pedro.thingscontroller.domain.model.command.ThingCommand
 import com.pedro.thingscontroller.domain.repository.ThingRepository

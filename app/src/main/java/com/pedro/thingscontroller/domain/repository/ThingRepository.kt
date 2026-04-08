@@ -1,7 +1,7 @@
 package com.pedro.thingscontroller.domain.repository
 
 import com.pedro.thingscontroller.domain.model.command.ThingCommand
-import com.pedro.thingscontroller.domain.model.ThingException
+import com.pedro.thingscontroller.domain.model.exception.ThingException
 import com.pedro.thingscontroller.domain.model.component.Component
 import com.pedro.thingscontroller.domain.model.thing.Thing
 import kotlinx.coroutines.flow.Flow

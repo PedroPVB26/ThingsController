@@ -1,7 +1,9 @@
 package com.pedro.thingscontroller.data.auth
 
+import com.amplifyframework.auth.AuthException
 import com.amplifyframework.auth.options.AuthSignOutOptions
 import com.amplifyframework.core.Amplify
+import com.pedro.thingscontroller.domain.model.exception.MyAuthException
 import com.pedro.thingscontroller.domain.repository.AuthRepository
 import kotlinx.coroutines.suspendCancellableCoroutine
 import javax.inject.Inject
@@ -9,19 +11,42 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
 class AuthRepositoryImpl @Inject constructor() : AuthRepository {
+    private val TAG = "AuthRepositoryImpl"
 
-    override suspend fun signIn(username: String, password: String): Boolean =
+//    override suspend fun signIn(username: String, password: String) =
+//        suspendCancellableCoroutine { cont ->
+//            Amplify.Auth.signIn(
+//                username,
+//                password,
+//                { result -> cont.resume(result.isSignedIn) },
+//                { error ->
+//                    when(error){
+//                        is NotAuthorizedException ->{
+//                            cont.resumeWithException(error)
+//                        }
+//                        else -> {
+//                            cont.resumeWithException(Exception("Login Error"))
+//                            Log.i(TAG, "signIn: ${error.message}, ${error.cause}")
+//                        }
+//                    }
+//                }
+//            )
+//        }
+
+    override suspend fun signIn(username: String, password: String) =
         suspendCancellableCoroutine { cont ->
             Amplify.Auth.signIn(
                 username,
                 password,
-                { result -> cont.resume(result.isSignedIn) },
-                { error -> cont.resumeWithException(error) }
+                { cont.resume(Unit) },
+                { error -> cont.resumeWithException(mapAuthError(error)) }
             )
         }
 
-    override suspend fun signOut() {
-        Amplify.Auth.signOut({} as AuthSignOutOptions, {})
+    override suspend fun signOut(): Unit = suspendCancellableCoroutine { cont ->
+        Amplify.Auth.signOut {
+            cont.resume(Unit)
+        }
     }
 
     override suspend fun isUserSignedIn(): Boolean =
@@ -31,8 +56,22 @@ class AuthRepositoryImpl @Inject constructor() : AuthRepository {
                     cont.resume(session.isSignedIn)
                 },
                 { error ->
-                    cont.resumeWithException(error)
+                    cont.resumeWithException(mapAuthError(error))
                 }
             )
         }
+}
+
+fun mapAuthError(error: AuthException): MyAuthException {
+
+    return when (error) {
+
+        is com.amplifyframework.auth.exceptions.NotAuthorizedException -> {
+            MyAuthException.InvalidCredentials()
+        }
+
+        else -> {
+            MyAuthException.Unknown(error)
+        }
+    }
 }
