@@ -9,4 +9,6 @@ object LoginRoute
 object HomeRoute
 
 @Serializable
-object ThingComponentsRoute // Deve receber uma thing
+data class ThingComponentsRoute(
+    val thingName: String
+)

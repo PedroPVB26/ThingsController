@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
@@ -37,8 +38,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.pedro.thingscontroller.presentation.view.ui.theme.ThingsControllerTheme
 import com.pedro.thingscontroller.presentation.viewmodel.LoginUiState
-//import androidx.compose.material.icons.filled.Visibility
-//import androidx.compose.material.icons.filled.VisibilityOff
 
 @Composable
 fun LoginScreen(
@@ -61,7 +60,8 @@ fun LoginScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(16.dp),
+            .padding(16.dp)
+            .imePadding(), // adiciona automaticamente um espaço na parte de baixo quando o teclado aparece.
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -154,6 +154,30 @@ private fun LoginScreenIdlePreview() {
     ThingsControllerTheme() {
         LoginScreen(
             loginUiState = LoginUiState.Idle,
+            onLoginClick = {email, password -> },
+            onNavigateToHome = {}
+        )
+    }
+}
+
+@Preview(name = "Loading", showBackground = true)
+@Composable
+private fun LoginScreenLoadingPreview() {
+    ThingsControllerTheme() {
+        LoginScreen(
+            loginUiState = LoginUiState.Loading,
+            onLoginClick = {email, password -> },
+            onNavigateToHome = {}
+        )
+    }
+}
+
+@Preview(name = "Error", showBackground = true)
+@Composable
+private fun LoginScreenErrorPreview() {
+    ThingsControllerTheme() {
+        LoginScreen(
+            loginUiState = LoginUiState.Error("Invalid Credentials"),
             onLoginClick = {email, password -> },
             onNavigateToHome = {}
         )
