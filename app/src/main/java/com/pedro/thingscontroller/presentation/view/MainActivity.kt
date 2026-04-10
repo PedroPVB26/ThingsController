@@ -37,6 +37,7 @@ import com.pedro.thingscontroller.domain.model.exception.MyAuthException
 import com.pedro.thingscontroller.domain.usecase.InitializeThingsUseCase
 import com.pedro.thingscontroller.domain.usecase.LoginUseCase
 import com.pedro.thingscontroller.domain.repository.ThingRepository
+import com.pedro.thingscontroller.presentation.navigation.AppNavHost
 import com.pedro.thingscontroller.presentation.view.ui.theme.ThingsControllerTheme
 import com.pedro.thingscontroller.presentation.viewmodel.LoginUiState
 import com.pedro.thingscontroller.presentation.viewmodel.LoginViewModel
@@ -63,7 +64,11 @@ class MainActivity : ComponentActivity() {
                 val loginState by loginViewModel.state.collectAsState()
 
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    var email by remember { mutableStateOf("") }
+                    AppNavHost(
+                        Modifier.padding(innerPadding)
+                    )
+
+                    /*var email by remember { mutableStateOf("") }
                     var passsword by remember { mutableStateOf("") }
 
                     Column(
@@ -113,7 +118,7 @@ class MainActivity : ComponentActivity() {
                                 else -> "Logado com sucesso"
                             }
                         )
-                    }
+                    }*/
                 }
             }
         }
@@ -145,21 +150,5 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }*/
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    ThingsControllerTheme {
-        Greeting("Android")
     }
 }

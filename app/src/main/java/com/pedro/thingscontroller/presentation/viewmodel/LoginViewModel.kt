@@ -11,6 +11,7 @@ import com.pedro.thingscontroller.domain.usecase.LoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -26,14 +27,14 @@ class LoginViewModel @Inject constructor (
 
     fun login(email: String, password: String){
         viewModelScope.launch {
-            _state.value = LoginUiState.Loading
+            _state.update { LoginUiState.Loading }
 
             val result = loginUseCase(email, password)
 
             when(result){
                 is UseCaseResult.Success -> {
                     val tokens = result.data
-                    _state.value = LoginUiState.Success(tokens)
+                    _state.update{ LoginUiState.Success(tokens) }
 
                     initializeThingsUseCase()
                 }
@@ -44,16 +45,17 @@ class LoginViewModel @Inject constructor (
                         else -> "Login error, please try later"
                     }
 
-                    _state.value = LoginUiState.Error(message)
+                    _state.update { LoginUiState.Error(message) }
                 }
 
                 is UseCaseResult.Failure.NoNetwork -> {
-                    _state.value = LoginUiState.Error("You're offline")
+                    _state.update { LoginUiState.Error("You're offline") }
+
                 }
 
                 else -> {
                     Log.e(TAG, "login $result")
-                    _state.value = LoginUiState.Error("Unexpected error")
+                    _state.update { LoginUiState.Error("Unexpected error") }
                 }
             }
         }
