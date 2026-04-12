@@ -25,6 +25,7 @@ lifecycleVersion = "2.10.0"
 coreKtxVersion = "1.7.0"
 junitJunit = "4.12"
 kotlinxSerializationJson = "1.7.3"
+coreSplashScreen = "1.2.0"
 
 [libraries]
 androidx-compose-material-icons-extended = { module = "androidx.compose.material:material-icons-extended" }
@@ -62,6 +63,7 @@ aws-android-sdk-iot = { module = "com.amazonaws:aws-android-sdk-iot", version.re
 org-eclipse-paho-android-service = { module = "org.eclipse.paho:org.eclipse.paho.android.service", version.ref = "orgEclipsePahoAndroidService" }
 org-eclipse-paho-client-mqttv3 = { module = "org.eclipse.paho:org.eclipse.paho.client.mqttv3", version.ref = "orgEclipsePahoClientMqttv3" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "coreSplashScreen" }
 core-ktx = { group = "androidx.test", name = "core-ktx", version.ref = "coreKtxVersion" }
 junit-junit = { group = "junit", name = "junit", version.ref = "junitJunit" }
 

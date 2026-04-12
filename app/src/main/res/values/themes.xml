@@ -2,4 +2,10 @@
 <resources>
 
     <style name="Theme.ThingsController" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <!-- Este é o tema que o Android usa para desenhar a Splash Screen instantaneamente -->
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
+        <item name="postSplashScreenTheme">@style/Theme.ThingsController</item>
+    </style>
 </resources>

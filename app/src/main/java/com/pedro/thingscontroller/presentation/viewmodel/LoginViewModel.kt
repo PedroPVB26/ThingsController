@@ -18,7 +18,6 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor (
     private val loginUseCase: LoginUseCase,
-//    private val initializeThingsUseCase: InitializeThingsUseCase
 ): ViewModel() {
     private val TAG = "LoginViewModel"
 
@@ -36,7 +35,6 @@ class LoginViewModel @Inject constructor (
                     val tokens = result.data
                     _state.update{ LoginUiState.Success(tokens) }
 
-//                    initializeThingsUseCase()
                 }
 
                 is UseCaseResult.Failure.AuthError -> {
