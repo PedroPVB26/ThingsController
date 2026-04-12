@@ -4,6 +4,7 @@ import android.widget.Toast
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,6 +26,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
@@ -33,6 +35,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
@@ -142,28 +145,68 @@ fun HomeScreen(
                             }
                         }
                     )
-
                     Spacer(modifier = Modifier.height(24.dp))
 
+                    if(filteredThings.isNotEmpty()){
+                        LazyColumn(
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.spacedBy(16.dp)
+                        ) {
+                            items(
+                                items = filteredThings.toList(),
+                                key = {it.first}
+                            ){(thingName, thing) ->
+                                ThingComposable(
+                                    thing = thing,
+                                    onSeeComponents = {onSeeThingComponents(thingName)}
+                                )
+                            }
 
-                    LazyColumn(
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.spacedBy(16.dp)
-                    ) {
-                        items(
-                            items = filteredThings.toList(),
-                            key = {it.first}
-                        ){(thingName, thing) ->
-                            ThingComposable(
-                                thing = thing,
-                                onSeeComponents = {onSeeThingComponents(thingName)}
-                            )
                         }
+                    }else{
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Text(
+                                text = "No things found",
+                                style = MaterialTheme.typography.titleMedium,
+                                fontWeight = FontWeight.SemiBold
+                            )
 
+                            Spacer(modifier = Modifier.height(4.dp))
+
+                            Text(
+                                text = "We couldn't find anything matching \"$searchQuery\".",
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = Color.Gray,
+                                textAlign = TextAlign.Center
+                            )
+
+                            Spacer(modifier = Modifier.height(8.dp))
+
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(
+                                    text = "Try using a different name or ",
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = Color.Gray
+                                )
+
+                                TextButton(
+                                    onClick = { searchQuery = "" },
+                                    contentPadding = PaddingValues(0.dp)
+                                ) {
+                                    Text(
+                                        text = "clear the search",
+                                        style = MaterialTheme.typography.bodySmall
+                                    )
+                                }
+                            }
+                        }
                     }
-
                 }
 
             }
