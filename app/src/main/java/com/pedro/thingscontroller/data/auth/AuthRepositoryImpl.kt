@@ -13,25 +13,6 @@ import kotlin.coroutines.resumeWithException
 class AuthRepositoryImpl @Inject constructor() : AuthRepository {
     private val TAG = "AuthRepositoryImpl"
 
-//    override suspend fun signIn(username: String, password: String) =
-//        suspendCancellableCoroutine { cont ->
-//            Amplify.Auth.signIn(
-//                username,
-//                password,
-//                { result -> cont.resume(result.isSignedIn) },
-//                { error ->
-//                    when(error){
-//                        is NotAuthorizedException ->{
-//                            cont.resumeWithException(error)
-//                        }
-//                        else -> {
-//                            cont.resumeWithException(Exception("Login Error"))
-//                            Log.i(TAG, "signIn: ${error.message}, ${error.cause}")
-//                        }
-//                    }
-//                }
-//            )
-//        }
 
     override suspend fun signIn(username: String, password: String) =
         suspendCancellableCoroutine { cont ->
@@ -53,10 +34,13 @@ class AuthRepositoryImpl @Inject constructor() : AuthRepository {
         suspendCancellableCoroutine { cont ->
             Amplify.Auth.fetchAuthSession(
                 { session ->
-                    cont.resume(session.isSignedIn)
+                    val cognitoSession = session as? com.amplifyframework.auth.cognito.AWSCognitoAuthSession
+                    // Se o valor for nulo, o Amplify falhou em obter tokens válidos
+                    val hasValidTokens = cognitoSession?.userPoolTokensResult?.value != null
+                    cont.resume(session.isSignedIn && hasValidTokens)
                 },
                 { error ->
-                    cont.resumeWithException(mapAuthError(error))
+                    cont.resume(false)
                 }
             )
         }

@@ -23,10 +23,12 @@ class LoginUseCase @Inject constructor(
             val alreadyLoggedIn = authRepository.isUserSignedIn()
 
             if (alreadyLoggedIn) {
-//                authRepository.signOut()
                 val tokens = tokenProvider.getTokens()
                 return UseCaseResult.Success(tokens)
             }
+            
+            // GARANTIA: Limpa sessão antiga/expirada antes de tentar novo login
+            authRepository.signOut()
 
             authRepository.signIn(email, password)
 

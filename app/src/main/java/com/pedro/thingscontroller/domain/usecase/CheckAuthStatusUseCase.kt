@@ -22,6 +22,7 @@ class CheckAuthStatusUseCase @Inject constructor(
 
             if (alreadyLoggedIn) {
                 val tokens = tokenProvider.getTokens()
+                // Se chegou aqui, o isUserSignedIn já garantiu que o token é válido/renovado
                 UseCaseResult.Success(tokens)
             } else {
                 UseCaseResult.Failure.AuthError(MyAuthException.SessionExperied())
