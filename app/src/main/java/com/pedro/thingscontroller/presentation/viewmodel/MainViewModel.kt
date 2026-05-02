@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.pedro.thingscontroller.domain.model.UseCaseResult
 import com.pedro.thingscontroller.domain.usecase.CheckAuthStatusUseCase
+import com.pedro.thingscontroller.domain.usecase.ObserveNetworkStatusUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,16 +15,19 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val checkAuthStatusUseCase: CheckAuthStatusUseCase
+    private val checkAuthStatusUseCase: CheckAuthStatusUseCase,
+    private val observeNetworkStatusUseCase: ObserveNetworkStatusUseCase
 ): ViewModel() {
     private val _authState = MutableStateFlow<AuthState>(AuthState.Checking)
     val authState: StateFlow<AuthState> = _authState.asStateFlow()
 
+    val isOnline = observeNetworkStatusUseCase()
+
     init {
-        checkStatus()
+        checkAuthStatus()
     }
 
-    fun checkStatus(){
+    fun checkAuthStatus(){
         viewModelScope.launch {
             _authState.update {AuthState.Checking}
 

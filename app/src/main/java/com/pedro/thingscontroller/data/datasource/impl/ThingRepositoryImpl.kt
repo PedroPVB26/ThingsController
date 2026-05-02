@@ -11,7 +11,11 @@ import com.pedro.thingscontroller.di.modules.ApplicationScope
 import com.pedro.thingscontroller.domain.model.exception.ThingException
 import com.pedro.thingscontroller.domain.model.command.ThingCommand
 import com.pedro.thingscontroller.domain.model.component.Component
+import com.pedro.thingscontroller.domain.model.component.ComponentState
+import com.pedro.thingscontroller.domain.model.component.instance.BuzzerInstance
 import com.pedro.thingscontroller.domain.model.component.instance.ComponentInstanceStateUpdate
+import com.pedro.thingscontroller.domain.model.component.instance.LedInstance
+import com.pedro.thingscontroller.domain.model.component.instance.TemperatureUmidityInstance
 import com.pedro.thingscontroller.domain.model.thing.Thing
 import com.pedro.thingscontroller.domain.model.thing.ThingStateStatus
 import com.pedro.thingscontroller.domain.repository.ThingRepository
@@ -44,7 +48,25 @@ class ThingRepositoryImpl @Inject constructor(
 
     override fun observeThing(thingId: String): Flow<Thing?> = _allThings.map { it[thingId] }
 
-    override suspend fun initialize() {
+    override suspend fun getThingComponents(thingId: String) {
+        if(_allThingsComponents.value[thingId]!= null){
+            return
+        }
+
+        val response = thingsApi.getThingComponents(thingId)
+        Log.i("asdadasdas", response.toString())
+        if(!response.isSuccessful || response.body() == null){
+            throw ThingException.Unknown(
+                Throwable("Failed to fetch components of $thingId:  HTTP ${response.code()}")
+            )
+        }
+
+        val domainComponents = response.body()!!.toDomain()
+        Log.i(TAG, "$domainComponents")
+        _allThingsComponents.update { it + (thingId to domainComponents) }
+    }
+
+    override suspend fun initializeThings() {
         // Fetching all things from the API
         val response = thingsApi.getAllThings()
         if(!response.isSuccessful || response.body() == null){
@@ -56,7 +78,7 @@ class ThingRepositoryImpl @Inject constructor(
         // Seed in-meory state
         val things = response.body()!!.things
         _allThings.value = things.associateBy { it.thingName }
-        Log.i(TAG, "TESTE: ${_allThings.value.toString()}")
+//        Log.i(TAG, "TESTE: ${_allThings.value.toString()}")
 
         // Connect to MQTT
         mqttDataSource.connect()
@@ -85,12 +107,24 @@ class ThingRepositoryImpl @Inject constructor(
         val requestId = UUID.randomUUID().toString()
         thingCommand.requestId = requestId
 
+        markComponentPending(thingId, thingCommand.componentId, requestId)
+
         try {
+            val commandJson = gson.toJson(thingCommand)
+            Log.d("aaa", "Enviando comando para $thingId: $commandJson")
+
             val response = thingsApi.postCommand(thingId, thingCommand)
+
+            Log.d("aaa", "API Resposta - Code: ${response.code()}, Success: ${response.isSuccessful}")
+
             if (!response.isSuccessful) {
+                val errorBody = response.errorBody()?.string()
+                Log.e("aaa", "API Erro Body: $errorBody")
                 throw ThingException.Unknown(
-                    Throwable("Failed to send command: HTTP ${response.code()}")
+                    Throwable("Failed to send command: HTTP ${response.code()} - $errorBody")
                 )
+            } else {
+                Log.i("aaa", "Comando enviado com sucesso para a nuvem")
             }
         } catch (e: ThingException) {
             throw e
@@ -165,7 +199,25 @@ class ThingRepositoryImpl @Inject constructor(
             if(component.type != update.componentType) component else {
                 val updatedInstances = component.instances.map { instance ->
                     if (instance.componentId != update.componentId) instance
-                    else instance.updateState(update.state, update.updatedAt, update.requestId)
+                    else{
+                        when(instance){
+                            is LedInstance -> instance.updateState(
+                                update.state as ComponentState.LedState,
+                                update.updatedAt,
+                                update.requestId
+                            )
+                            is BuzzerInstance -> instance.updateState(
+                                update.state as ComponentState.BuzzerState,
+                                update.updatedAt,
+                                update.requestId
+                            )
+                            is TemperatureUmidityInstance -> instance.updateState(
+                                update.state as ComponentState.TemperatureHumidityState,
+                                update.updatedAt,
+                                update.requestId
+                            )
+                        }
+                    }
                 }
                 component.copy(instances = updatedInstances)
             }

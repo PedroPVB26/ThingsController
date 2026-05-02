@@ -2,7 +2,7 @@ package com.pedro.thingscontroller.domain.model
 
 import com.pedro.thingscontroller.domain.model.exception.MyAuthException
 import com.pedro.thingscontroller.domain.model.exception.ThingException
-import com.pedro.thingscontroller.domain.usecase.EnsureNetworkUseCase
+import com.pedro.thingscontroller.domain.usecase.GetNetworkStatusUseCase
 
 /**
  * Represents the outcome of a use case operation.
@@ -46,7 +46,7 @@ sealed class UseCaseResult<out T> {
          * The operation was aborted because the device has no active
          * internet connection.
          *
-         * Produced by [EnsureNetworkUseCase] and propagated by any
+         * Produced by [GetNetworkStatusUseCase] and propagated by any
          * use case that requires network access before executing.
          */
         data object NoNetwork: Failure()

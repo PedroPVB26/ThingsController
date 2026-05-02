@@ -15,7 +15,7 @@ import javax.inject.Inject
  *
  * @see [UseCaseResult.Failure.NoNetwork]
  */
-class EnsureNetworkUseCase @Inject constructor(
+class GetNetworkStatusUseCase @Inject constructor(
     private val networkMonitor: NetworkMonitor
 ) {
     /**

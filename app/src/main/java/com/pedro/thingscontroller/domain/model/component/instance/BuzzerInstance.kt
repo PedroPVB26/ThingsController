@@ -12,23 +12,19 @@ data class BuzzerInstance(
     override val componentId: String,
     override val componentType: ComponentType = ComponentType.BUZZER,
     override val available: Boolean,
-    override val state: ComponentState,
+    override val state: ComponentState.BuzzerState,
     override val updatedAt: Long,
     override val pendingRequestId: String?
-): ComponentInstance() {
-    override fun withPendingRequest(requestId: String?): ComponentInstance = copy(pendingRequestId = requestId)
+): ComponentInstance<ComponentState.BuzzerState>() {
+    override fun withPendingRequest(requestId: String?) = copy(pendingRequestId = requestId)
 
     override fun updateState(
-        newState: ComponentState,
+        newState: ComponentState.BuzzerState,
         updatedAt: Long,
         requestId: String?
-    ): ComponentInstance {
-        val shouldClearPending = requestId == null || pendingRequestId == requestId
-
-        return copy(
-            state = newState,
-            updatedAt = updatedAt,
-            pendingRequestId = if (shouldClearPending) null else pendingRequestId
-        )
-    }
+    ) = copy(
+        state = newState,
+        updatedAt = updatedAt,
+        pendingRequestId = if (requestId == null || pendingRequestId == requestId) null else pendingRequestId
+    )
 }

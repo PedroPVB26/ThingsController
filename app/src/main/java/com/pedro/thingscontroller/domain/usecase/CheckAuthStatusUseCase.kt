@@ -10,10 +10,10 @@ import javax.inject.Inject
 class CheckAuthStatusUseCase @Inject constructor(
     private val authRepository: AuthRepository,
     private val tokenProvider: TokenProvider,
-    private val ensureNetworkUseCase: EnsureNetworkUseCase
+    private val getNetworkStatusUseCase: GetNetworkStatusUseCase
 ) {
     suspend operator fun invoke(): UseCaseResult<Tokens?> {
-        ensureNetworkUseCase().let {
+        getNetworkStatusUseCase().let {
             if (it is UseCaseResult.Failure.NoNetwork) return it
         }
 

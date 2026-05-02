@@ -23,21 +23,21 @@ import com.pedro.thingscontroller.domain.model.component.ComponentType
  * @property pendingRequestId Optional identifier of a command that has been
  * sent but not yet confirmed by the device. Used for tracking in-flight operations.
  */
-sealed class ComponentInstance{
+sealed class ComponentInstance<T: ComponentState>{
     abstract val componentId: String
     abstract val componentType: ComponentType
     abstract val available: Boolean
-    abstract val state: ComponentState
+    abstract val state: T
     abstract val updatedAt: Long
     abstract val pendingRequestId: String?
 
     // Mover as implementações para cá!!!
     // Cada filha faz literalmente a mesma coisa com essa função
-    abstract fun withPendingRequest(requestId: String?): ComponentInstance
+    abstract fun withPendingRequest(requestId: String?): ComponentInstance<T>
 
     abstract fun updateState(
-        newState: ComponentState,
+        newState: T,
         updatedAt: Long,
         requestId: String?
-    ): ComponentInstance
+    ): ComponentInstance<T>
 }

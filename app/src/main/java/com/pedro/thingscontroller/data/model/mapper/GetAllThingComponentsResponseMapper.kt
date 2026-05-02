@@ -34,9 +34,10 @@ fun GetThingComponentsResponse.toDomain(): List<Component>{
             else -> emptyList()
         }
 
-        val instances: List<ComponentInstance> = componentResponse.instances.map { (instanceId: String, instanceResponse: ComponentInstanceResponse) ->
+        val instances: List<ComponentInstance<*>> = componentResponse.instances.map { (instanceId: String, instanceResponse: ComponentInstanceResponse) ->
             val state = parseState(componentType, instanceResponse.state)
-            val updatedAt = instanceResponse.updatedAt!!
+            val updatedAt = instanceResponse.updatedAt
+                ?: (instanceResponse.state.asJsonObject.get("updatedAt").asLong)
             val precision = parsePrecision(componentType, instanceResponse)
 
             when (componentType) {
@@ -44,7 +45,7 @@ fun GetThingComponentsResponse.toDomain(): List<Component>{
                     LedInstance(
                         componentId = instanceId,
                         componentType = ComponentType.LED,
-                        state = state,
+                        state = state as ComponentState.LedState,
                         updatedAt = updatedAt,
                         available = instanceResponse.available,
                         pendingRequestId = null
@@ -54,7 +55,7 @@ fun GetThingComponentsResponse.toDomain(): List<Component>{
                     TemperatureUmidityInstance(
                         componentId = instanceId,
                         componentType = ComponentType.TEMPERATURE_UMIDITY_SENSOR,
-                        state = state,
+                        state = state as ComponentState.TemperatureHumidityState,
                         updatedAt = updatedAt,
                         available = instanceResponse.available,
                         precision = precision as? ComponentPrecision.TemperatureUmiditySensorPrecision,

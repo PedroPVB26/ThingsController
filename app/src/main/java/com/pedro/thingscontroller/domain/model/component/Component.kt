@@ -27,5 +27,5 @@ import com.pedro.thingscontroller.domain.model.component.instance.*
 data class Component(
     val type: ComponentType,
     val actions: List<ComponentActionDescriptor>,
-    val instances: List<ComponentInstance>
+    val instances: List<ComponentInstance<*>>
 )

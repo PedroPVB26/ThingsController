@@ -70,7 +70,9 @@ interface ThingRepository {
      * list and continue emitting updates as Thing states change.
      *
      */
-    suspend fun initialize()
+    suspend fun initializeThings()
+
+    suspend fun getThingComponents(thingId: String)
 
     /**
      * Sends a command to a specific Thing.

@@ -42,7 +42,7 @@ sealed interface ComponentState {
  *
  * Useful when the UI or system needs to trigger an action based on the current state.
  */
-fun ComponentState.LedState.toAction(): ComponentAction{
+fun ComponentState.LedState.toAction(): ComponentAction.LedAction{
     return when(this){
         ComponentState.LedState.ON -> ComponentAction.LedAction.ON
         ComponentState.LedState.OFF -> ComponentAction.LedAction.OFF

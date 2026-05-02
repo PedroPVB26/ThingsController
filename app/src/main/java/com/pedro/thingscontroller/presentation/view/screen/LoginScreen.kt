@@ -41,7 +41,7 @@ import com.pedro.thingscontroller.presentation.viewmodel.LoginUiState
 
 @Composable
 fun LoginScreen(
-    modifier: Modifier = Modifier,
+//    modifier: Modifier = Modifier,
     loginUiState: LoginUiState,
     onLoginClick: (String, String) -> Unit,
     onNavigateToHome: () -> Unit
@@ -58,9 +58,9 @@ fun LoginScreen(
     }
 
     Column(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(24.dp)
             .imePadding(), // adiciona automaticamente um espaço na parte de baixo quando o teclado aparece.
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally

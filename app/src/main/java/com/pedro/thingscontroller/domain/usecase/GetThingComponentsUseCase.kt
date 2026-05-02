@@ -1,24 +1,23 @@
 package com.pedro.thingscontroller.domain.usecase
 
-import com.pedro.thingscontroller.domain.model.exception.ThingException
+import android.util.Log
 import com.pedro.thingscontroller.domain.model.UseCaseResult
 import com.pedro.thingscontroller.domain.repository.ThingRepository
 import javax.inject.Inject
 
-class InitializeThingsUseCase @Inject constructor(
-    private val thingRepository: ThingRepository,
-    private val getNetworkStatusUseCase: GetNetworkStatusUseCase
+class GetThingComponentsUseCase @Inject constructor(
+    private val getNetworkStatusUseCase: GetNetworkStatusUseCase,
+    private val thingRepository: ThingRepository
 ) {
-    suspend operator fun invoke(): UseCaseResult<Unit>{
+    suspend operator fun invoke(thingName: String): UseCaseResult<Unit>{
         getNetworkStatusUseCase().let {
             if(it is UseCaseResult.Failure.NoNetwork) return it
         }
 
         return try {
-            thingRepository.initializeThings()
+            thingRepository.getThingComponents(thingName)
+            Log.i("GetThingComponentsUseCase", "invokedo")
             UseCaseResult.Success(Unit)
-        } catch (e: ThingException) {
-            UseCaseResult.Failure.ThingError(e)
         } catch (e: Exception) {
             UseCaseResult.Failure.Unknown(e)
         }

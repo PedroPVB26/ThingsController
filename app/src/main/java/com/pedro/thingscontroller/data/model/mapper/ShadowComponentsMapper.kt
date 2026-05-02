@@ -114,15 +114,16 @@ private fun mapLed(componentType: ComponentType, componentId: String, stateEleme
 private fun mapTemperatureUmiditySensor(componentType: ComponentType, componentId: String, stateElement: JsonElement): ComponentInstanceStateUpdate{
     val obj = stateElement.asJsonObject
     val sensorData = obj.get("state").asJsonObject
+    val timestamp = sensorData.get("updatedAt").asLong
     return ComponentInstanceStateUpdate(
         componentType = ComponentType.TEMPERATURE_UMIDITY_SENSOR,
         componentId = componentId,
         state = ComponentState.TemperatureHumidityState(
             temperature = sensorData.get("temperature").asDouble,
             humidity = sensorData.get("humidity").asDouble,
-            updatedAt = sensorData.get("updatedAt").asLong
+            updatedAt = timestamp
         ),
-        updatedAt = obj.get("updatedAt").asLong,
+        updatedAt = timestamp,
         // Even tho sensors may not receive a command (with a request id) it is better to store its requestId(coming from the Thing it, e.g. "thingUpdateRequest")
         requestId = obj.get("requestId")?.asString
     )

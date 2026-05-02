@@ -25,6 +25,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -52,14 +53,15 @@ import com.pedro.thingscontroller.presentation.viewmodel.HomeUiState
 
 @Composable
 fun HomeScreen(
-    modifier: Modifier = Modifier,
+//    modifier: Modifier = Modifier,
     homeUiState: HomeUiState,
     onSeeThingComponents: (String) -> Unit,
+    snackbarHostState: SnackbarHostState? = null
 ) {
     val focusManager = LocalFocusManager.current
 
     Column(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxSize()
             .padding(24.dp)
             .pointerInput(Unit){

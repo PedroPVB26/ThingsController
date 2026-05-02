@@ -12,23 +12,19 @@ data class LedInstance(
     override val componentId: String,
     override val componentType: ComponentType = ComponentType.LED,
     override val available: Boolean,
-    override val state: ComponentState,
+    override val state: ComponentState.LedState,
     override val updatedAt: Long,
     override val pendingRequestId: String?
-): ComponentInstance() {
-    override fun withPendingRequest(requestId: String?): ComponentInstance = copy(pendingRequestId = requestId)
+): ComponentInstance<ComponentState.LedState>() {
+    override fun withPendingRequest(requestId: String?) = copy(pendingRequestId = requestId)
 
     override fun updateState(
-        newState: ComponentState,
+        newState: ComponentState.LedState,
         updatedAt: Long,
         requestId: String?
-    ): ComponentInstance {
-        val shouldClearPending = requestId == null || pendingRequestId == requestId
-
-        return copy(
-            state = newState,
-            updatedAt = updatedAt,
-            pendingRequestId = if (shouldClearPending) null else pendingRequestId
-        )
-    }
+    ) = copy(
+        state = newState,
+        updatedAt = updatedAt,
+        pendingRequestId = if (requestId == null || pendingRequestId == requestId) null else pendingRequestId
+    )
 }

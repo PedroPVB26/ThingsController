@@ -17,24 +17,20 @@ data class TemperatureUmidityInstance(
     override val componentId: String,
     override val componentType: ComponentType = ComponentType.TEMPERATURE_UMIDITY_SENSOR,
     override val available: Boolean,
-    override val state: ComponentState,
+    override val state: ComponentState.TemperatureHumidityState,
     override val updatedAt: Long,
     override val pendingRequestId: String?,
     val precision: ComponentPrecision.TemperatureUmiditySensorPrecision?
-): ComponentInstance() {
-    override fun withPendingRequest(requestId: String?): ComponentInstance  = copy(pendingRequestId = requestId)
+): ComponentInstance<ComponentState.TemperatureHumidityState>() {
+    override fun withPendingRequest(requestId: String?) = copy(pendingRequestId = requestId)
 
     override fun updateState(
-        newState: ComponentState,
+        newState: ComponentState.TemperatureHumidityState,
         updatedAt: Long,
         requestId: String?
-    ): ComponentInstance {
-        val shouldClearPending = requestId == null || pendingRequestId == requestId
-
-        return copy(
-            state = newState,
-            updatedAt = updatedAt,
-            pendingRequestId = if (shouldClearPending) null else pendingRequestId
-        )
-    }
+    )= copy(
+        state = newState,
+        updatedAt = updatedAt,
+        pendingRequestId = if (requestId == null || pendingRequestId == requestId) null else pendingRequestId
+    )
 }

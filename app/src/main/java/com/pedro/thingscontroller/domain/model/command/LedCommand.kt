@@ -1,5 +1,6 @@
 package com.pedro.thingscontroller.domain.model.command
 
+import com.google.gson.annotations.SerializedName
 import com.pedro.thingscontroller.domain.model.component.ComponentAction
 import com.pedro.thingscontroller.domain.model.component.ComponentType
 
@@ -13,6 +14,7 @@ import com.pedro.thingscontroller.domain.model.component.ComponentType
 data class LedCommand(
     override var requestId: String? = null,
     override val componentId: String,
+    @SerializedName("componentCommand")
     override val componentType: ComponentType = ComponentType.LED,
     override val action: ComponentAction.LedAction,
 
