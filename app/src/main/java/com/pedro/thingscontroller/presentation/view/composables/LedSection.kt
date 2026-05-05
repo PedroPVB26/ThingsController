@@ -53,7 +53,8 @@ fun LedSection(
     onActionClick: (ThingCommand) -> Unit
 ){
     LazyColumn(
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        contentPadding = PaddingValues(vertical = 16.dp)
     ) {
         items(led.instances){ledInstance ->
             val ledColor = when (ledInstance.componentId.removeSuffix("Led").lowercase()) {
@@ -67,7 +68,10 @@ fun LedSection(
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(24.dp),
-                elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+                elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.surfaceVariant
+                ),
             ) {
                 Row(
                     modifier = Modifier

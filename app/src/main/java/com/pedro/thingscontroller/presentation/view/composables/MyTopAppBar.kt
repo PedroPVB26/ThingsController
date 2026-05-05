@@ -2,6 +2,7 @@ package com.pedro.thingscontroller.presentation.view.composables
 
 import android.content.res.Configuration
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -46,19 +47,18 @@ fun MyTopAppBar(
         modifier = modifier,
         title = {
             Text(
-                text = title
+                text = title,
             )
         },
         navigationIcon = {
             if (
-                currentDestination?.hasRoute<HomeRoute>() == false &&
-                currentDestination?.hasRoute<LoginRoute>() == false
+                currentDestination?.hasRoute<HomeRoute>() == false && !currentDestination.hasRoute<LoginRoute>()
             ) {
                 IconButton(
                     onClick = { navController.popBackStack() }
                 ) {
                     Icon(
-                        imageVector = Icons.Default.ArrowBack,
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = "Voltar"
                     )
                 }

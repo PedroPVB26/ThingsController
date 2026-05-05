@@ -130,9 +130,10 @@ fun LoginScreen(
 
         Spacer(modifier = Modifier.height(8.dp))
 
+        val fieldsFilled = email.isNotEmpty() && passsword.isNotEmpty()
         Button(
             onClick = {onLoginClick(email, passsword)},
-            enabled = loginUiState != LoginUiState.Loading,
+            enabled = loginUiState != LoginUiState.Loading && fieldsFilled,
             modifier = Modifier.fillMaxWidth()
         ) {
             if(loginUiState == LoginUiState.Loading){

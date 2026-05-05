@@ -2,6 +2,7 @@ package com.pedro.thingscontroller.presentation.view.composables
 
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -36,6 +37,8 @@ import com.pedro.thingscontroller.R
 import com.pedro.thingscontroller.domain.model.thing.Thing
 import com.pedro.thingscontroller.domain.model.thing.ThingState
 import com.pedro.thingscontroller.domain.model.thing.ThingStateStatus
+import com.pedro.thingscontroller.presentation.view.ui.theme.SuccessDark
+import com.pedro.thingscontroller.presentation.view.ui.theme.SuccessLight
 import com.pedro.thingscontroller.presentation.view.ui.theme.ThingsControllerTheme
 
 @Composable
@@ -44,8 +47,12 @@ fun ThingComposable(
     onSeeComponents: (String) -> Unit
 ){
     val isConnected = thing.connection.status == ThingStateStatus.CONNECTED
+    val successColor = if (isSystemInDarkTheme()) SuccessDark else SuccessLight
 
-    ElevatedCard(
+    Card(
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant
+        ),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 6.dp
         ),
@@ -96,7 +103,7 @@ fun ThingComposable(
                     if (!isConnected){
                         Text(
                             text = "Disconnected",
-                            color = Color.Red,
+                            color = MaterialTheme.colorScheme.error,
                             fontWeight = FontWeight.Bold
                         )
                     }
@@ -110,7 +117,7 @@ fun ThingComposable(
             if(isConnected){
                 Text(
                     text = "Connected",
-                    color = Color.Green,
+                    color = successColor,
                     style = MaterialTheme.typography.labelMedium
                 )
             }

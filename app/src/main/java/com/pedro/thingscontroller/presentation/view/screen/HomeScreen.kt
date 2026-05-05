@@ -1,5 +1,6 @@
 package com.pedro.thingscontroller.presentation.view.screen
 
+import android.content.res.Configuration
 import android.widget.Toast
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
@@ -26,6 +27,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -49,6 +51,7 @@ import com.pedro.thingscontroller.domain.model.thing.Thing
 import com.pedro.thingscontroller.domain.model.thing.ThingState
 import com.pedro.thingscontroller.domain.model.thing.ThingStateStatus
 import com.pedro.thingscontroller.presentation.view.composables.ThingComposable
+import com.pedro.thingscontroller.presentation.view.ui.theme.ThingsControllerTheme
 import com.pedro.thingscontroller.presentation.viewmodel.HomeUiState
 
 @Composable
@@ -221,15 +224,21 @@ fun HomeScreen(
 }
 
 @Preview(showBackground = true)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun HomeScreenLoadingPreview() {
-    HomeScreen(
-        homeUiState = HomeUiState.Loading,
-        onSeeThingComponents = {}
-    )
+    ThingsControllerTheme {
+        Surface(color = MaterialTheme.colorScheme.background) {
+            HomeScreen(
+                homeUiState = HomeUiState.Loading,
+                onSeeThingComponents = {}
+            )
+        }
+    }
 }
 
 @Preview(showBackground = true)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun HomeScreenSuccessPreview() {
 
@@ -266,17 +275,26 @@ fun HomeScreenSuccessPreview() {
         )
     )
 
-    HomeScreen(
-        homeUiState = HomeUiState.Success(things),
-        onSeeThingComponents = {}
-    )
+    ThingsControllerTheme {
+        Surface(color = MaterialTheme.colorScheme.background) {
+            HomeScreen(
+                homeUiState = HomeUiState.Success(things),
+                onSeeThingComponents = {}
+            )
+        }
+    }
 }
 
 @Preview(showBackground = true)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun HomeScreenErrorPreview() {
-    HomeScreen(
-        homeUiState = HomeUiState.Error("Falha ao carregar dispositivos"),
-        onSeeThingComponents = {}
-    )
+    ThingsControllerTheme {
+        Surface(color = MaterialTheme.colorScheme.background) {
+            HomeScreen(
+                homeUiState = HomeUiState.Error("Falha ao carregar dispositivos"),
+                onSeeThingComponents = {}
+            )
+        }
+    }
 }
