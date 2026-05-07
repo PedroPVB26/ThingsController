@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.pedro.thingscontroller.domain.model.UseCaseResult
 import com.pedro.thingscontroller.domain.usecase.CheckAuthStatusUseCase
 import com.pedro.thingscontroller.domain.usecase.ObserveNetworkStatusUseCase
+import com.pedro.thingscontroller.domain.usecase.SignOutUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -16,7 +17,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val checkAuthStatusUseCase: CheckAuthStatusUseCase,
-    private val observeNetworkStatusUseCase: ObserveNetworkStatusUseCase
+    private val observeNetworkStatusUseCase: ObserveNetworkStatusUseCase,
+    private val signOutUseCase: SignOutUseCase
 ): ViewModel() {
     private val _authState = MutableStateFlow<AuthState>(AuthState.Checking)
     val authState: StateFlow<AuthState> = _authState.asStateFlow()
@@ -39,6 +41,13 @@ class MainViewModel @Inject constructor(
                     _authState.value = AuthState.Unauthenticated
                 }
             }
+        }
+    }
+
+    fun signOut() {
+        viewModelScope.launch {
+            signOutUseCase()
+            _authState.update { AuthState.Unauthenticated }
         }
     }
 }

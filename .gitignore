@@ -22,3 +22,6 @@ captures/
 
 # Logs
 *.log
+
+# Outros
+app/src/main/res/raw/amplifyconfiguration.json

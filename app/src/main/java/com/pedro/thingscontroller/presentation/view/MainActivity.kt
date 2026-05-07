@@ -7,9 +7,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -51,6 +54,34 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 val snackbarHostState = remember { SnackbarHostState() }
 
+                var showLogoutDialog by remember { mutableStateOf(false) }
+
+                if (showLogoutDialog) {
+                    AlertDialog(
+                        onDismissRequest = { showLogoutDialog = false },
+                        title = { Text("Sign Out") },
+                        text = { Text("Are you sure you want to sign out of your account?") },
+                        confirmButton = {
+                            TextButton(
+                                onClick = {
+                                    showLogoutDialog = false
+                                    viewModel.signOut()
+                                    navController.navigate(LoginRoute) {
+                                        popUpTo(0) { inclusive = true }
+                                    }
+                                }
+                            ) {
+                                Text("Yes")
+                            }
+                        },
+                        dismissButton = {
+                            TextButton(onClick = { showLogoutDialog = false }) {
+                                Text("Cancel")
+                            }
+                        }
+                    )
+                }
+
                 var previousIsOnline by remember { mutableStateOf<Boolean?>(null) }
 
                 LaunchedEffect(isOnline) {
@@ -66,7 +97,14 @@ class MainActivity : ComponentActivity() {
                 }
 
                 Scaffold(
-                    topBar = { MyTopAppBar(navController = navController) },
+                    topBar = {
+                        MyTopAppBar(
+                            navController = navController,
+                            onSignOut = {
+                                showLogoutDialog = true
+                            }
+                        )
+                    },
                     snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
                     modifier = Modifier.fillMaxSize()
                 ) { innerPadding ->

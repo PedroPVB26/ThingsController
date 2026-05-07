@@ -3,6 +3,7 @@ package com.pedro.thingscontroller.presentation.view.composables
 import android.content.res.Configuration
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.Logout
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -28,7 +29,8 @@ import androidx.navigation.NavDestination.Companion.hasRoute
 @Composable
 fun MyTopAppBar(
     modifier: Modifier = Modifier,
-    navController: NavController
+    navController: NavController,
+    onSignOut: () -> Unit = {}
 ){
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = backStackEntry?.destination
@@ -65,6 +67,19 @@ fun MyTopAppBar(
             }
             else{
                 IconButton(onClick = { }) {}
+            }
+        },
+        actions = {
+            if (currentDestination?.hasRoute<LoginRoute>() == false) {
+                IconButton(
+                    onClick = onSignOut
+                ) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.Logout,
+                        contentDescription = "Sign Out",
+                        tint = MaterialTheme.colorScheme.error
+                    )
+                }
             }
         },
         colors = TopAppBarDefaults.topAppBarColors(
