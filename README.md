@@ -1,3 +1,10 @@
+
+![alt text](image.png)
+![Android](https://img.shields.io/badge/android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
+![Kotlin](https://img.shields.io/badge/kotlin-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white)
+![AWS](https://img.shields.io/badge/aws-232F3E?style=for-the-badge&logo=amazonaws&logoColor=FF9900)
+![ESP32](https://img.shields.io/badge/esp32-E7352C?style=for-the-badge&logo=espressif&logoColor=white)
+
 # Things Controller
 Aplicação Android para monitoramento e controle de dispositivos IoT em tempo real utilizando AWS IoT Core, MQTT e Clean Architecture
 
