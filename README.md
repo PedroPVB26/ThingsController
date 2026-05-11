@@ -8,6 +8,24 @@
 # Things Controller
 Aplicação Android para monitoramento e controle de dispositivos IoT em tempo real utilizando AWS IoT Core, MQTT e Clean Architecture
 
+## Demonstração
+
+<p align="center">
+  <img src="video1.gif" width="250"/>
+  <img src="video2.gif" width="250"/>
+  <img src="video3.gif" width="250"/>
+</p>
+
+### 1. Autenticação e carregamento inicial
+Demonstra o fluxo de autenticação do usuário utilizando AWS Cognito, seguido pelo carregamento assíncrono das Things registradas e sincronização inicial dos estados de cada Thing.
+
+### 2. Monitoramento em tempo real dos dispositivos
+Exibe a atualização dinâmica do estado de conectividade da Thing, carregamento, dos seus componentes (LEDs, Sensores, etc.) e renderização reativa da interface utilizando Jetpack Compose.
+
+### 3. Controle remoto e atualização de telemetria
+Demonstra o envio de comandos MQTT para atuadores (LEDs), atualização em tempo real dos estados dos componentes e sincronização bidirecional utilizando AWS IoT Device Shadow.
+
+
 ## Funcionalidades
 - **Login**: Sistema de login integrado ao AWS Cognito (via Amplify). Dada as regras de negócio, novos usuários não podem ser autocadastrar.
 
