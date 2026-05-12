@@ -41,9 +41,9 @@ Aplicação Android para monitoramento e controle de dispositivos IoT em tempo r
   </tr>
   <tr>
     <td style="vertical-align: top; width: 360px; padding: 12px;">
-      <video src="video4.mp4" width="360" autoplay loop muted playsinline>
-        Seu navegador não suporta vídeo embutido. <a href="video4.mp4">Clique aqui para ver o vídeo 4</a>.
-      </video>
+      <div style="width: 340px; height: 200px; display: flex; align-items: center; justify-content: center; background: #111; color: #fff; border-radius: 8px;">
+        <a href="video4.mp4" style="color: #fff; text-decoration: none; font-weight: bold;">▶️ Abrir vídeo 4</a>
+      </div>
     </td>
     <td style="vertical-align: top; padding: 12px;">
       <strong>4. Resultado</strong>
