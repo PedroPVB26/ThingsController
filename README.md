@@ -41,13 +41,11 @@ Aplicação Android para monitoramento e controle de dispositivos IoT em tempo r
   </tr>
   <tr>
     <td style="vertical-align: top; width: 360px; padding: 12px;">
-      <video src="video4t.mp4" width="360" autoplay loop muted playsinline>
-        Seu navegador não suporta vídeo embutido. <a href="video4.mp4">Clique aqui para ver o vídeo 4</a>.
-      </video>
+      <img src="video4t.gif" alt="Vídeo 4" width="340" />
     </td>
     <td style="vertical-align: top; padding: 12px;">
       <strong>4. Resultado</strong>
-      <p>Mostra a o resultado de comandos enviados sendo aplicados de fato no dois ESP32.</p>
+      <p>Mostra a o resultado de comandos enviados sendo aplicados de fato no dois ESP32. Nele é possível ver os LEDs, incialmente desligados, ligando e/ou piscando e desligando.</p>
     </td>
   </tr>
 </table>
