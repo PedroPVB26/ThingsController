@@ -12,8 +12,8 @@ Aplicação Android para monitoramento e controle de dispositivos IoT em tempo r
 
 <table style="border-collapse: collapse; width: 100%;">
   <tr>
-    <td style="vertical-align: top; width: 340px; padding: 12px;">
-      <video src="video1.mp4" width="340" autoplay loop muted playsinline></video>
+    <td style="vertical-align: top; width: 360px; padding: 12px;">
+      <img src="video1.gif" alt="Vídeo 1" width="340" />
     </td>
     <td style="vertical-align: top; padding: 12px;">
       <strong>1. Autenticação e carregamento inicial</strong>
@@ -21,8 +21,8 @@ Aplicação Android para monitoramento e controle de dispositivos IoT em tempo r
     </td>
   </tr>
   <tr>
-    <td style="vertical-align: top; width: 340px; padding: 12px;">
-      <video src="video2.mp4" width="340" autoplay loop muted playsinline></video>
+    <td style="vertical-align: top; width: 360px; padding: 12px;">
+      <img src="video2.gif" alt="Vídeo 2" width="340" />
     </td>
     <td style="vertical-align: top; padding: 12px;">
       <strong>2. Monitoramento em tempo real dos dispositivos</strong>
@@ -30,8 +30,8 @@ Aplicação Android para monitoramento e controle de dispositivos IoT em tempo r
     </td>
   </tr>
   <tr>
-    <td style="vertical-align: top; width: 340px; padding: 12px;">
-      <video src="video3.mp4" width="340" autoplay loop muted playsinline></video>
+    <td style="vertical-align: top; width: 360px; padding: 12px;">
+      <img src="video3.gif" alt="Vídeo 3" width="340" />
     </td>
     <td style="vertical-align: top; padding: 12px;">
       <strong>3. Controle remoto e atualização de telemetria</strong>
@@ -40,12 +40,14 @@ Aplicação Android para monitoramento e controle de dispositivos IoT em tempo r
     </td>
   </tr>
   <tr>
-    <td style="vertical-align: top; width: 340px; padding: 12px;">
-      <video src="video4.mp4" width="340" autoplay loop muted playsinline></video>
+    <td style="vertical-align: top; width: 360px; padding: 12px;">
+      <video src="video4.mp4" width="360" autoplay loop muted playsinline>
+        Seu navegador não suporta vídeo embutido. <a href="video4.mp4">Clique aqui para ver o vídeo 4</a>.
+      </video>
     </td>
     <td style="vertical-align: top; padding: 12px;">
-      <strong>4. Fluxo completo e experiência do usuário</strong>
-      <p>Mostra a sequência completa de login, listagem das Things, navegação entre telas e resposta em tempo real aos comandos enviados pelo usuário.</p>
+      <strong>4. Resultado</strong>
+      <p>Mostra a o resultado de comandos enviados sendo aplicados de fato no dois ESP32 cadastrados.</p>
     </td>
   </tr>
 </table>
