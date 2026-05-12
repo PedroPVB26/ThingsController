@@ -10,21 +10,45 @@ Aplicação Android para monitoramento e controle de dispositivos IoT em tempo r
 
 ## Demonstração
 
-<p align="center">
-  <img src="video1.gif" width="250"/>
-  <img src="video2.gif" width="250"/>
-  <img src="video3.gif" width="250"/>
-</p>
-
-### 1. Autenticação e carregamento inicial
-Demonstra o fluxo de autenticação do usuário utilizando AWS Cognito, seguido pelo carregamento assíncrono das Things registradas e sincronização inicial dos estados de cada Thing.
-
-### 2. Monitoramento em tempo real dos dispositivos
-Exibe a atualização dinâmica do estado de conectividade da Thing, carregamento, dos seus componentes (LEDs, Sensores, etc.) e renderização reativa da interface utilizando Jetpack Compose.
-
-### 3. Controle remoto e atualização de telemetria
-Demonstra o envio de comandos MQTT para atuadores (LEDs), atualização em tempo real dos estados dos componentes e sincronização bidirecional utilizando AWS IoT Device Shadow.
-
+<table style="border-collapse: collapse; width: 100%;">
+  <tr>
+    <td style="vertical-align: top; width: 340px; padding: 12px;">
+      <video src="video1.mp4" width="340" autoplay loop muted playsinline></video>
+    </td>
+    <td style="vertical-align: top; padding: 12px;">
+      <strong>1. Autenticação e carregamento inicial</strong>
+      <p>Demonstra o fluxo de autenticação do usuário utilizando AWS Cognito, seguido pelo carregamento assíncrono das Things registradas e sincronização inicial dos estados de cada dispositivo.</p>
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align: top; width: 340px; padding: 12px;">
+      <video src="video2.mp4" width="340" autoplay loop muted playsinline></video>
+    </td>
+    <td style="vertical-align: top; padding: 12px;">
+      <strong>2. Monitoramento em tempo real dos dispositivos</strong>
+      <p>Exibe a atualização dinâmica do estado de conectividade da Thing, carregamento automático dos seus componentes (LEDs, sensores, etc.) e renderização reativa da interface utilizando Jetpack Compose.</p>
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align: top; width: 340px; padding: 12px;">
+      <video src="video3.mp4" width="340" autoplay loop muted playsinline></video>
+    </td>
+    <td style="vertical-align: top; padding: 12px;">
+      <strong>3. Controle remoto e atualização de telemetria</strong>
+      <p>Demonstra o envio de comandos MQTT para atuadores (LEDs), atualização em tempo real dos estados dos componentes e sincronização bidirecional utilizando AWS IoT Device Shadow.</p>
+      <p><em>Obs: no vídeo o carregamento aparenta estar mais lento devido à conversão/renderização, mas na aplicação real a resposta ocorre de forma mais rápida.</em></p>
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align: top; width: 340px; padding: 12px;">
+      <video src="video4.mp4" width="340" autoplay loop muted playsinline></video>
+    </td>
+    <td style="vertical-align: top; padding: 12px;">
+      <strong>4. Fluxo completo e experiência do usuário</strong>
+      <p>Mostra a sequência completa de login, listagem das Things, navegação entre telas e resposta em tempo real aos comandos enviados pelo usuário.</p>
+    </td>
+  </tr>
+</table>
 
 ## Funcionalidades
 - **Login**: Sistema de login integrado ao AWS Cognito (via Amplify). Dada as regras de negócio, novos usuários não podem ser autocadastrar.
@@ -39,7 +63,7 @@ Demonstra o envio de comandos MQTT para atuadores (LEDs), atualização em tempo
 
 - **Interface Reativa**: UI construída em Jetpack Compose que reage instantaneamente a mudanças de estado, com suporte total a modo claro/escuro. 
 
--**Feedback de Operações**: Indicadores de carregamento para comandos pendentes e estados visuais específicos para dispositivos desconectados (efeito de blur/desfoque).
+- **Feedback de Operações**: Indicadores de carregamento para comandos pendentes e estados visuais específicos para dispositivos desconectados (efeito de blur/desfoque).
 
 ## Tech Stack
 ### Android

@@ -160,7 +160,7 @@ fun ThingComponentsScreen(
 
                             ComponentType.BUZZER -> {
                                 ComponentHeader("Buzzers")
-                            }
+                      ''      }
 
                             else -> {}
                         }
