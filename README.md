@@ -1,5 +1,5 @@
 
-![alt text](image.png)
+![alt text](github/image.png)
 ![Android](https://img.shields.io/badge/android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
 ![Kotlin](https://img.shields.io/badge/kotlin-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white)
 ![AWS](https://img.shields.io/badge/aws-232F3E?style=for-the-badge&logo=amazonaws&logoColor=FF9900)
@@ -13,7 +13,7 @@ Aplicação Android para monitoramento e controle de dispositivos IoT em tempo r
 <table style="border-collapse: collapse; width: 100%;">
   <tr>
     <td style="vertical-align: top; width: 360px; padding: 12px;">
-      <img src="video1.gif" alt="Vídeo 1" width="340" />
+      <img src="github/video1.gif" alt="Vídeo 1" width="340" />
     </td>
     <td style="vertical-align: top; padding: 12px;">
       <strong>1. Autenticação e carregamento inicial</strong>
@@ -22,7 +22,7 @@ Aplicação Android para monitoramento e controle de dispositivos IoT em tempo r
   </tr>
   <tr>
     <td style="vertical-align: top; width: 360px; padding: 12px;">
-      <img src="video2.gif" alt="Vídeo 2" width="340" />
+      <img src="github/video2.gif" alt="Vídeo 2" width="340" />
     </td>
     <td style="vertical-align: top; padding: 12px;">
       <strong>2. Monitoramento em tempo real dos dispositivos</strong>
@@ -31,7 +31,7 @@ Aplicação Android para monitoramento e controle de dispositivos IoT em tempo r
   </tr>
   <tr>
     <td style="vertical-align: top; width: 360px; padding: 12px;">
-      <img src="video3.gif" alt="Vídeo 3" width="340" />
+      <img src="github/video3.gif" alt="Vídeo 3" width="340" />
     </td>
     <td style="vertical-align: top; padding: 12px;">
       <strong>3. Controle remoto e atualização de telemetria</strong>
@@ -41,7 +41,7 @@ Aplicação Android para monitoramento e controle de dispositivos IoT em tempo r
   </tr>
   <tr>
     <td style="vertical-align: top; width: 360px; padding: 12px;">
-      <img src="video4t.gif" alt="Vídeo 4" width="340" />
+      <img src="github/video4t.gif" alt="Vídeo 4" width="340" />
     </td>
     <td style="vertical-align: top; padding: 12px;">
       <strong>4. Resultado</strong>
